@@ -23,7 +23,7 @@ def div(a, b):
 
 operator_bank = { "+": add, "-": sub, "*": mult, "/": div}
 
-print("Calulator microservice is running...")
+print("Calculator microservice is running...")
 
 while True:
     if os.path.exists(REQUEST_FILE):

@@ -1,22 +1,36 @@
 import time
+import os
 
+REQUEST_FILE = "_request"
+RESPONSE_FILE = "_response"
 
 while True:
-    expression = input("Enter calculation in Reverse Polish with commas between each portion like 5,5,+:")
+    expression = input("Enter calculation in Reverse Polish with commas between each portion like 5,5,+: ")
+
 
     parts = expression.split(',')
+    if len(parts) != 3:
+        print("Invalid format. Use: number, number, operator")
+        continue
 
+    # Write request
+    with open(REQUEST_FILE, 'w') as f:
+        f.write(expression)
 
-    with open('_request', 'w') as file:
-        file.write(f'{parts[0]},{parts[1]},{parts[2]}')
+    # Look for response from calculator_microservice.py
+    while True:
+        if os.path.exists(RESPONSE_FILE):
+            with open(RESPONSE_FILE, "r") as f:
+                response = f.read().strip()
+            break
+        time.sleep(0.05)
 
-    time.sleep(1)
+    # Process response
+    if response == "ERROR":
+        print("ERROR")
 
-    with open('_response', 'r') as file:
-        response = file.read()
-
-    if response == 'ERROR':
-        print(response)
     else:
-        response = float(response)
-        print(response)
+        print(float(response))
+    
+    # Cleare response file for the next request
+    open(RESPONSE_FILE, "w").close()
