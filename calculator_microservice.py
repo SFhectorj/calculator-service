@@ -13,13 +13,16 @@ def log(message):
     with open(LOG_FILE, "a") as f:
         f.write(message + "\n")
 
-def add(a, b): return a + b
-def sub(a, b): return a - b
-def mult(a, b): return a * b
-def div(a, b):
-    if b == 0:
+def add(num1, num2): 
+    return num1 + num2
+def sub(num1, num2): 
+    return num1 - num2
+def mult(num1, num2): 
+    return num1 * num2
+def div(num1, num2):
+    if num2 == 0:
         return "ERROR"
-    return a / b
+    return num1 / num2
 
 operator_bank = { "+": add, "-": sub, "*": mult, "/": div}
 
@@ -44,14 +47,14 @@ while True:
 
                 # Check if operator recieved is in operator_bank
                 try:
-                    a = float(num1)
-                    b = float(num2)
+                    num1 = float(num1)
+                    num2 = float(num2)
 
                     if operator not in operator_bank:
                         result = "ERROR"
                     else:
                         # Calculate
-                        result = operator_bank[operator](a, b)
+                        result = operator_bank[operator](num1, num2)
                 except:
                     result = "ERROR"
                 
@@ -61,4 +64,4 @@ while True:
             with open(RESPONSE_FILE, "w") as f:
                 f.write(str(result))
 
-    time.sleep(0.05)
+    time.sleep(0.5)
