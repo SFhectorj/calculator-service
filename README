@@ -18,7 +18,7 @@ _response - used to recieve the result
         An example call is provided below:
         ```
         with open("_request", "w") as f:
-            f.write("5, 10, +")   # spaces okay
+            f.write("5,10,+")
         ```
 
 2. RECIEVE data from the Microservice
@@ -57,6 +57,8 @@ _response - used to recieve the result
 
 3. UML Sequence Diagram
 This UML Sequence Diagram illustrates interaction flow for a calculation between a MainProgram, CommunicationPipeline, and CalculatorService.
+
+
 
 
 
