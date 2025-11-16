@@ -1,0 +1,63 @@
+Communication Contract
+This document describes how programs can communicate with the calculator micros-service usin the following files:
+_request - used to send a calculation request
+_response - used to recieve the result
+
+1. REQUEST Data from the Microservice
+    1.1 Formatting
+        Each request must follow this exact format:
+        <operand1>, <operand2>,<operator>
+
+        operand1 = number (integer or float)
+        operand2 = number (integer or float)
+        operator: + - * /
+
+    1.2 Location
+        You can make a request by writing directly on the _request file.
+
+        An example call is provided below:
+        ```
+        with open("_request", "w") as f:
+            f.write("5, 10, +")   # spaces okay
+        ```
+
+2. RECIEVE data from the Microservice
+
+    2.1 Response is ready
+        A result will be written in the _response file automatically.
+        Make sure your program is waiting for a response.
+
+        Here an example of response call:
+        ```
+        while True: 
+            if os.path.exists("_response"):
+                with open("_response", "r") as f:
+                    response = f.read().strip()
+        time.sleep(0.05)
+
+        # Process the result obtained 
+        if response == "ERROR":
+            print("Calculation error.")
+        else:
+            print("Result:", float(response))
+        ```
+
+        It is important to make sure the _response file is cleared before the next call.
+
+        An example clearing call is shown below:
+        ```
+        with open("_response", "w") as f:
+            f.write("")
+        ```
+
+        A valid response will return an integer.
+
+        If an issue arrises there will be an Error Response message that reads "ERROR"
+        An error response will be triggered on invalid input, bad operator, or divide-by-zero.
+
+3. UML Sequence Diagram
+This UML Sequence Diagram illustrates interaction flow for a calculation between a MainProgram, CommunicationPipeline, and CalculatorService.
+
+
+
+
