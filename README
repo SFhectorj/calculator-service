@@ -58,7 +58,7 @@ _response - used to recieve the result
 3. UML Sequence Diagram
 This UML Sequence Diagram illustrates interaction flow for a calculation between a MainProgram, CommunicationPipeline, and CalculatorService.
 
-![UML Sequence Diagram](UML Sequence DIagram.png)
+https://github.com/SFhectorj/calculator-service/blob/2fba17c10dfd2e5c56a39d5c5770f2d61fabe316/UML%20Sequence%20DIagram.png
 
 
 
