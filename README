@@ -1,61 +1,58 @@
 Communication Contract
-This document describes how programs can communicate with the calculator micros-service usin the following files:
+This document describes how programs can communicate with the calculator micros-service using the following files:
 _request - used to send a calculation request
 _response - used to recieve the result
 
-1. REQUEST Data from the Microservice
-    1.1 Formatting
+1. EXAMPLE REQUEST AND RECIEVE CAllS:
+    1.1 Example Request/Recieve Call for Addition Problem
+
+    #Request
+    "5,5,+"
+    
+    #Recieve
+    "10"
+
+    1.2 Example Request/Recieve Call for Multiplication Problem
+
+    #Request
+    "8,5,*"
+
+    #Recieve
+    "40"
+
+    1.3 Example Request Call for Division Problem:
+
+    #Request
+    "100,50,/"
+
+    #Recieve
+    2
+    
+For a deeper explanation on request and recieve calls see below:
+
+2. REQUEST Data from the Microservice
+    2.1 Formatting
         Each request must follow this exact format:
-        <operand1>, <operand2>,<operator>
+        "<operand1>,<operand2>,<operator>"
 
         operand1 = number (integer or float)
         operand2 = number (integer or float)
         operator: + - * /
 
-    1.2 Location
-        You can make a request by writing directly on the _request file.
+3. RECIEVE data from the Microservice
 
-        An example call is provided below:
-        ```
-        with open("_request", "w") as f:
-            f.write("5,10,+")
-        ```
-
-2. RECIEVE data from the Microservice
-
-    2.1 Response is ready
+    3.1 Response is ready
         A result will be written in the _response file automatically.
         Make sure your program is waiting for a response.
 
-        Here an example of response call:
-        ```
-        while True: 
-            if os.path.exists("_response"):
-                with open("_response", "r") as f:
-                    response = f.read().strip()
-        time.sleep(0.05)
-
-        # Process the result obtained 
-        if response == "ERROR":
-            print("Calculation error.")
-        else:
-            print("Result:", float(response))
-        ```
-
         It is important to make sure the _response file is cleared before the next call.
 
-        An example clearing call is shown below:
-        ```
-        with open("_response", "w") as f:
-            f.write("")
-        ```
-
-        A valid response will return an integer.
+        A valid response will return a number result.
 
         If an issue arrises there will be an Error Response message that reads "ERROR"
         An error response will be triggered on invalid input, bad operator, or divide-by-zero.
 
-3. UML Sequence Diagram
+4. UML Sequence Diagram
 This UML Sequence Diagram illustrates interaction flow for a calculation between a MainProgram, CommunicationPipeline, and CalculatorService.
 
 https://github.com/SFhectorj/calculator-service/blob/2fba17c10dfd2e5c56a39d5c5770f2d61fabe316/UML%20Sequence%20DIagram.png
