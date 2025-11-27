@@ -26,7 +26,7 @@ _response - used to recieve the result
     "100,50,/"
 
     #Recieve
-    2
+    "2"
     
 For a deeper explanation on request and recieve calls see below:
 
